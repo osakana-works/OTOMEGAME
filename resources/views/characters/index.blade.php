@@ -8,7 +8,7 @@
         <strong>{{ $character->name }}</strong>
         <p>{{ $character->description }}</p>
 
-        <a href="{{-- route('characters.edit', $character) --}}">編集</a>
+        <a href="{{ route('characters.edit', $character) }}">編集</a>
 
         <form action="{{ route('characters.destroy', $character) }}" method="POST" style="display:inline;">
             @csrf
