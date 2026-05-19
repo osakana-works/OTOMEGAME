@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterImageController;
+use App\Http\Controllers\BackgroundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
     // キャラ画像削除
     Route::delete('/character-images/{image}', [CharacterImageController::class, 'destroy'])
         ->name('character-images.destroy');
+
+    
+    Route::resource('backgrounds', BackgroundController::class);
 
 
 

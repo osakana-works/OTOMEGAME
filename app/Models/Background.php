@@ -11,8 +11,14 @@ class Background extends Model
     protected $fillable = [
         'name',
         'image_path',
+        'user_id',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
     public function scenes1()
     {
         return $this->hasMany(Scene::class, 'background_id1');
