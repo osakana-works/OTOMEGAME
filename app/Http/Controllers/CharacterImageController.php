@@ -23,6 +23,7 @@ class CharacterImageController extends Controller
             'image' => 'required|image|max:2048',
         ]);
 
+        // PNG のまま保存（変換なし）
         $path = $request->file('image')->store('character_images', 'public');
 
         CharacterImage::create([

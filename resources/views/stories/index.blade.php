@@ -17,6 +17,9 @@
         {{ $story->title }}
         {{ $story->description }}
         
+        <a href="{{ route('scenes.index', ['story_id' => $story->id]) }}">
+            シーン一覧へ
+        </a>
         <form method="POST" action="{{ route('stories.destroy', $story) }}" style="display:inline;">
             @csrf
             @method('DELETE')

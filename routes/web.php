@@ -6,6 +6,7 @@ use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterImageController;
 use App\Http\Controllers\BackgroundController;
 use App\Http\Controllers\BalloonController;
+use App\Http\Controllers\SceneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('balloons', BalloonController::class);
 
+    Route::resource('scenes', SceneController::class);
+
+    Route::get('/stories/{story}/play', [SceneController::class, 'play'])->name('stories.play');
+    Route::get('/stories/{story}/play/{order}', [SceneController::class, 'playScene'])->name('stories.play.scene');
+    
 
 });
