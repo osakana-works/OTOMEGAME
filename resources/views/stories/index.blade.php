@@ -15,7 +15,8 @@
 @foreach($stories as $story)
     <li>
         {{ $story->title }}
-        <a href="{{--route('stories.edit', $story) --}}">編集</a>
+        {{ $story->description }}
+        <a href="{{route('stories.edit', $story) }}">編集</a>
     </li>
 @endforeach
 </ul>

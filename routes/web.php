@@ -15,9 +15,12 @@ use App\Http\Controllers\StoryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
-Route::get('/story',[StoryController::class,'index'])->name('story.index');
-Route::get('/stories/create', [StoryController::class, 'create']);
-Route::post('/stories', [StoryController::class, 'store']);
+Route::middleware('auth')->group(function () {
+    Route::get('/story',[StoryController::class,'index'])->name('story.index');
+    Route::get('/stories/create', [StoryController::class, 'create']);
+    Route::post('/stories', [StoryController::class, 'store']);
+    Route::get('/stories/{id}', [StoryController::class, 'show']);
+});

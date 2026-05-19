@@ -12,7 +12,7 @@ class StoryController extends Controller
      */
     public function index()
     {   
-        $stories = Story::all();
+        $stories = Story::where('created_by', auth()->id())->get();
         return view('stories.index', compact('stories'));
     }
 
@@ -38,7 +38,7 @@ class StoryController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'is_published' => false,
-            'created_by' => '1' // ← ここが超重要！
+            'created_by' => auth()->id(),
         ]);
 
         return redirect('/story');
