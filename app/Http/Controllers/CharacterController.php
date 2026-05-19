@@ -3,17 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Story;
+use App\Models\Character;
 
-class StoryController extends Controller
+class CharacterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {   
-        $stories = Story::where('created_by', auth()->id())->get();
-        return view('stories.index', compact('stories'));
+    {
+        $characters = Character::where('created_by', auth()->id())->get();
+        return view('characters.index', compact('characters'));
     }
 
     /**
@@ -21,35 +21,34 @@ class StoryController extends Controller
      */
     public function create()
     {
-   
+        return view('characters.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
         $request->validate([
-            'title' => 'required|max:255',
+            'name' => 'required|max:255',
             'description' => 'nullable',
         ]);
 
-        Story::create([
-            'title' => $request->title,
+        Character::create([
+            'name' => $request->name,
             'description' => $request->description,
-            'is_published' => false,
             'created_by' => auth()->id(),
         ]);
 
-        return redirect('/story');
+        return redirect('/characters');        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+
     }
 
     /**
@@ -71,9 +70,9 @@ class StoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Story $story)
+    public function destroy(Character $character)
     {
-        $story->delete();
-        return redirect('/story');
+        $character->delete();
+        return redirect()->route('characters.index');
     }
 }

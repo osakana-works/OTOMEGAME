@@ -16,7 +16,12 @@
     <li>
         {{ $story->title }}
         {{ $story->description }}
-        <a href="{{route('stories.edit', $story) }}">編集</a>
+        
+        <form method="POST" action="{{ route('stories.destroy', $story) }}" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit">削除</button>
+        </form>
     </li>
 @endforeach
 </ul>
