@@ -5,6 +5,7 @@ use App\Http\Controllers\StoryController;
 use App\Http\Controllers\CharacterController;
 use App\Http\Controllers\CharacterImageController;
 use App\Http\Controllers\BackgroundController;
+use App\Http\Controllers\BalloonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
     
     Route::resource('backgrounds', BackgroundController::class);
 
+    Route::resource('balloons', BalloonController::class);
 
 
 });

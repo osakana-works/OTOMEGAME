@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Balloon extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'image_path', 'character_id'];
+    protected $fillable = ['name', 'image_path', 'character_id','user_id'];
 
     public function character()
     {
@@ -18,5 +18,10 @@ class Balloon extends Model
     public function scenes()
     {
         return $this->hasMany(Scene::class);
-    }    
+    } 
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -25,7 +25,11 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('characters')
                 ->onDelete('cascade');
-
+            
+            $table->foreignId('user_id')
+            ->constrained('users')
+            ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }
