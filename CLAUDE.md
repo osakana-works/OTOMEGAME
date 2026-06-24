@@ -128,6 +128,40 @@ From `composer.json`, `package.json`, and config:
   - FKs to backgrounds/balloons/character_images are nullable with `set null` on delete
   - model: belongsTo story, two backgrounds, one balloon, up to three character images
 
+### Choice / flag / affection tables (added in issue #2)
+- `choices`
+  - columns: `id`, `scene_id`, `label`, `sort_order`, `next_scene_id (nullable)`, timestamps
+  - FK: `scene_id -> scenes.id` (cascade delete)
+  - FK: `next_scene_id -> scenes.id` (nullable, set null on delete)
+  - model: `Choice` belongsTo `scene`, belongsTo `nextScene`, hasMany `effects(ChoiceEffect)`
+
+- `flags`
+  - columns: `id`, `story_id`, `code`, `description`, timestamps
+  - FK: `story_id -> stories.id` (cascade delete)
+  - unique: `(story_id, code)`
+  - model: `Flag` belongsTo `story`, hasMany `choiceEffects`, hasMany `userFlags`
+
+- `affections`
+  - columns: `id`, `user_id`, `character_id`, `value (default 0)`, timestamps
+  - FK: `user_id -> users.id` (cascade delete)
+  - FK: `character_id -> characters.id` (cascade delete)
+  - unique: `(user_id, character_id)`
+  - model: `Affection` belongsTo `user`, belongsTo `character`
+
+- `choice_effects`
+  - columns: `id`, `choice_id`, `character_id (nullable)`, `affection_delta (nullable)`, `flag_id (nullable)`, `flag_value (nullable)`, timestamps
+  - FK: `choice_id -> choices.id` (cascade delete)
+  - FK: `character_id -> characters.id` (nullable, set null on delete)
+  - FK: `flag_id -> flags.id` (nullable, set null on delete)
+  - model: `ChoiceEffect` belongsTo `choice`, belongsTo `character`, belongsTo `flag`
+
+- `user_flags`
+  - columns: `id`, `user_id`, `flag_id`, `value (boolean, default false)`, timestamps
+  - FK: `user_id -> users.id` (cascade delete)
+  - FK: `flag_id -> flags.id` (cascade delete)
+  - unique: `(user_id, flag_id)`
+  - model: `UserFlag` belongsTo `user`, belongsTo `flag`
+
 ### Auth/infrastructure tables
 - Default Laravel tables: `users`, `password_reset_tokens`, `failed_jobs`, `personal_access_tokens`, two-factor columns migration.
 - `2026_05_18_123118_add_role_to_users_table.php` currently has an empty migration body (no schema change yet).

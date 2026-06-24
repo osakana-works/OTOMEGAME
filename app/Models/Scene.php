@@ -54,4 +54,9 @@ class Scene extends Model
     {
         return $this->belongsTo(CharacterImage::class, 'character_image3_id');
     }
+
+    public function choices()
+    {
+        return $this->hasMany(Choice::class)->orderBy('sort_order');
+    }
 }
